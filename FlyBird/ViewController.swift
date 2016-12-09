@@ -36,46 +36,56 @@ class ViewController: UIViewController {
                                 UIImage(named: "bird2.png")!,
                                 UIImage(named: "bird3.png")!,
                                 UIImage(named: "bird4.png")!,
-                                UIImage(named: "bird4.png")!,]
+                                UIImage(named: "bird5.png")!,]
         bird.animationRepeatCount = 0
         bird.animationDuration = 1
         bird.startAnimating()
         self.view.addSubview(bird)
     }
+    
     func flyUpAndDown () {
         UIView.animateWithDuration(3, animations: {
             self.bird.center = CGPointMake(self.view.bounds.size.width - 40, self.view.bounds.size.height - 40)
             
-            
         }) {(finnished) in
             self.bird.transform = CGAffineTransformConcat(CGAffineTransformScale(self.bird.transform, -1, 1), CGAffineTransformMakeRotation(45))
-            
-            UIView.animateWithDuration(3, animations: {
-                self.bird.center = CGPointMake(0 + 40,720 - 40)
-                
-            }) {(finnished) in
-                self.bird.transform = CGAffineTransformConcat(CGAffineTransformScale(self.bird.transform, 1, -1), CGAffineTransformMakeRotation(45))
-                
-                UIView.animateWithDuration(3, animations: {
-                    self.bird.center = CGPointMake(360,0 + 40)
-                    
-                }) {(finnished) in
-                    self.bird.transform = CGAffineTransformConcat(CGAffineTransformScale(self.bird.transform, -1, 1), CGAffineTransformMakeRotation(90))
-                    
-                    UIView.animateWithDuration(3, animations: {
-                        self.bird.center = CGPointMake(0,0 + 40)
-                        
-                    }) {(finnished) in
-                        self.bird.transform = CGAffineTransformIdentity
-                        self.flyUpAndDown()
-                    }
-                    
-                    
-                }
-            }
-            
+            self.flyRightToLeft()
+        }
+        
+    }
+    
+    
+    func flyRightToLeft() {
+        UIView.animateWithDuration(3, animations: {
+            self.bird.center = CGPointMake(0 + 40,720 - 40)
+        }) {(finnished) in
+            self.bird.transform = CGAffineTransformConcat(CGAffineTransformScale(self.bird.transform, 1, -1), CGAffineTransformMakeRotation(45))
+            self.flyDownAndUp()
         }
     }
+    
+    
+    func flyDownAndUp() {
+        UIView.animateWithDuration(3, animations: {
+            
+            self.bird.center = CGPointMake(360,0 + 40)
+        }) {(finnished) in
+            self.bird.transform = CGAffineTransformConcat(CGAffineTransformScale(self.bird.transform, -1, 1), CGAffineTransformMakeRotation(90))
+            self.flyToFinnish()
+        }
+        
+    }
+    
+    func flyToFinnish() {
+        UIView.animateWithDuration(3, animations: {
+            self.bird.center = CGPointMake(0,0 + 40)
+        }) {(finnished) in
+            self.bird.transform = CGAffineTransformIdentity
+            self.flyUpAndDown()
+        }
+        
+    }
+    
     
     func playSong (){
         let filePath = NSBundle.mainBundle().pathForResource("A+ – Chào Mào Mái Hót", ofType: ".mp3")
